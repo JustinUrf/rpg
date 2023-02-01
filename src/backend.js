@@ -8,8 +8,7 @@ export default function NewCharacter(name, profession) {
 NewCharacter.prototype.RollStats = (characterToRollStats) => {
   let charStats = Object.keys(characterToRollStats.stats);
   charStats.forEach((stat) => {
-    characterToRollStats.stats[stat] += 4
+    characterToRollStats.stats[stat] += Math.floor(Math.random() * 5) + 1;
   })
-  // Math.floor(Math.random() * 7) + 1;
 }
 
