@@ -60,7 +60,28 @@ describe('NewCharacter', () => {
   test('Should check the user to be a warrior with the applied bonus equipment to be chain vest', () => {
     let newWarriorChest = new NewCharacter("warrior1", "Warrior");
     newWarriorChest.applyBonuses(newWarriorChest);
-    expect(newWarriorChest.equipment.chestpiece).toEqual("chain vest");
+    expect(newWarriorChest.equipment.chestpiece.name).toEqual("Chain Vest");
+    expect(newWarriorChest.equipment.legging.name).toEqual("Chain Leggings");
+    expect(newWarriorChest.equipment.gloves.name).toEqual("Chain Gloves");
+    expect(newWarriorChest.equipment.headgear.name).toEqual("Chain Helmet");
+    expect(newWarriorChest.equipment.weapon.name).toEqual("Greatsword");
+
+    let newPriestGear = new NewCharacter("Priest1", "Priest");
+    newPriestGear.applyBonuses(newPriestGear);
+    expect(newPriestGear.equipment.chestpiece.name).toEqual("Holy Cloak");
+    expect(newPriestGear.equipment.legging.name).toEqual("Holy Pants");
+    expect(newPriestGear.equipment.gloves.name).toEqual("Holy Gloves");
+    expect(newPriestGear.equipment.headgear.name).toEqual("Halo");
+    expect(newPriestGear.equipment.weapon.name).toEqual("Holy Book");
+    
+
+    let newThiefGear = new NewCharacter("Thief1", "Thief");
+    newThiefGear.applyBonuses(newThiefGear);
+    expect(newThiefGear.equipment.legging.name).toEqual("Leather Leggings");
+    expect(newThiefGear.equipment.legging.name).toEqual("Leather Leggings");
+    expect(newThiefGear.equipment.legging.name).toEqual("Leather Leggings");
+    expect(newThiefGear.equipment.legging.name).toEqual("Leather Leggings");
+
   })
   
 })
