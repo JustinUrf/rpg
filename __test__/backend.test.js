@@ -56,4 +56,11 @@ describe('NewCharacter', () => {
     expect(newAssassin.stats.str).toEqual(1);
     expect(newAssassin.stats.con).toEqual(-2);
   })
+
+  test('Should check the user to be a warrior with the applied bonus equipment to be chain vest', () => {
+    let newWarriorChest = new NewCharacter("warrior1", "Warrior");
+    newWarriorChest.applyBonuses(newWarriorChest);
+    expect(newWarriorChest.equipment.chestpiece).toEqual("chain vest");
+  })
+  
 })
