@@ -18,17 +18,17 @@ describe('NewCharacter', () => {
     expect(newCharacter.stats.con).toEqual(0);
   });
 
-  test('Should loop through characters stats and add a number to them, should fail at some point unless they all randomly turn to 4', () => {
-    const newCharacter = new NewCharacter("Justin", "Wizard");
-    newCharacter.rollStats(newCharacter);
-    expect(newCharacter.stats.dex).toEqual(4);
-    expect(newCharacter.stats.int).toEqual(4);
-    expect(newCharacter.stats.wis).toEqual(4);
-    expect(newCharacter.stats.str).toEqual(4);
-    expect(newCharacter.stats.charisma).toEqual(4);
-    expect(newCharacter.stats.con).toEqual(4);
+  // test('Should loop through characters stats and add a number to them, should fail at some point unless they all randomly turn to 4', () => {
+  //   const newCharacter = new NewCharacter("Justin", "Wizard");
+  //   newCharacter.rollStats(newCharacter);
+  //   expect(newCharacter.stats.dex).toEqual(4);
+  //   expect(newCharacter.stats.int).toEqual(4);
+  //   expect(newCharacter.stats.wis).toEqual(4);
+  //   expect(newCharacter.stats.str).toEqual(4);
+  //   expect(newCharacter.stats.charisma).toEqual(4);
+  //   expect(newCharacter.stats.con).toEqual(4);
 
-  })
+  // })
 
   test('Should loop through a characters stats and give random integers never lower than 1 or above 5', () => {
     const newCharacter = new NewCharacter("Justin", "Fencer");
@@ -83,5 +83,27 @@ describe('NewCharacter', () => {
     expect(newThiefGear.equipment.legging.name).toEqual("Leather Leggings");
 
   })
+
+  test('Return a number based off player equipment and player stats. Damage should scale based off weapon type', () => {
+    let warriorAttack = new NewCharacter("Attacker", "Warrior");
+    warriorAttack.rollStats(warriorAttack);
+    warriorAttack.applyBonuses(warriorAttack);
+    let testVar = warriorAttack.attack(warriorAttack);
+    expect(testVar) > 0
+  })
   
+  test('Return a HP value after the character recieves damage from an attack. HP returned should be based off protection value and damageRecieved', () => {
+    let priestDefend = new NewCharacter("Defender", "Priest");
+    priestDefend.rollStats(priestDefend);
+    priestDefend.applyBonuses(priestDefend);
+    let warriorAttack = new NewCharacter("Attacker", "Warrior");
+    warriorAttack.rollStats(warriorAttack);
+    warriorAttack.applyBonuses(warriorAttack);
+    let damageDealt = warriorAttack.attack(warriorAttack);
+    console.debug(damageDealt)
+    console.debug(priestDefend.stats.hp);
+    console.debug(priestDefend.stats.protectionValue)
+    let testVar = priestDefend.defend(priestDefend, damageDealt);
+    expect(testVar) > 0
+  })
 })

@@ -6,11 +6,12 @@ export default function NewCharacter(name, profession) {
   this.equipment = {weapon:"nothing", chestpiece: "nothing", legging:"nothing", headgear: "nothing", gloves: "nothing",};
 }
 
-function NewItem(name, weightClass, protectionValue, damageValue) {
+function NewItem(name, weightClass, protectionValue, damageValue, statType) {
   this.name = name;
   this.weightClass = weightClass;
   this.protectionValue = protectionValue;
   this.damageValue = damageValue
+  this.statType = statType
 }
 
 NewCharacter.prototype.rollStats = (characterToRollStats) => {
@@ -26,7 +27,7 @@ NewCharacter.prototype.applyBonuses = (characterToApplyBonus) => {
     const chainLeggings = {name:"Chain Leggings", protectionValue:15, weightClass:10}
     const chainGloves = {name:"Chain Gloves", protectionValue:5, weightClass:5}
     const chainHelmet = {name:"Chain Helmet", protectionValue:10, weightClass:8}
-    const greatSword = new NewItem("Greatsword", 20, 0, 12);
+    const greatSword = new NewItem("Greatsword", 20, 0, 12, "str");
     
     characterToApplyBonus.stats["str"] += 2;
     characterToApplyBonus.stats["con"] += 2;
@@ -43,7 +44,7 @@ NewCharacter.prototype.applyBonuses = (characterToApplyBonus) => {
     const holyPants = {name:"Holy Pants", protectionValue: 5, weightClass: 5}
     const holyGloves = {name:"Holy Gloves", protectionValue: 5, weightClass: 3}
     const halo = {name: "Halo", protectionValue: 25, weightClass: 3}
-    const holyBook = new NewItem("Holy Book", 5, 0, );
+    const holyBook = new NewItem("Holy Book", 5, 0, 3);
 
     characterToApplyBonus.stats["wis"] += 1;
     characterToApplyBonus.stats["int"] += 1;
@@ -102,4 +103,24 @@ NewCharacter.prototype.applyBonuses = (characterToApplyBonus) => {
   }
 
 };
+
+NewCharacter.prototype.attack = (characterToAttack) => {
+  let damageCounter = 0;
+  damageCounter += Math.floor(Math.random() * characterToAttack.equipment.weapon.damageValue) + 1;
+  const weaponType = characterToAttack.equipment.weapon.statType
+  damageCounter += characterToAttack.stats[weaponType] * 0.5
+  return damageCounter
+}
+
+NewCharacter.prototype.defend = (characterToDefend, damageRecieved) => {
+  let damageTaken = 0;
+  damageTaken = characterToDefend.stats.protectionValue - damageRecieved;
+  if (damageTaken < 0){
+    characterToDefend.stats.hp += (1 * damageTaken);
+    return characterToDefend.stats.hp;
+  } 
+  else {
+    return characterToDefend.stats.hp;
+  }
+}
 
